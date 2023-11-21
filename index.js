@@ -1,19 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const bodyParser = require('body-parser');
 const userRoute = require('./routes/userRoute');
 const poetryRoute = require('./routes/poetryRoute');
 const quoteRoute = require('./routes/quoteRoute');
 
-// file imports
+
 const dbConnect = require('./config/connection')
 
 const app = express();
 
 // Middlewares
 app.use(cors());
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
