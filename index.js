@@ -24,6 +24,10 @@ app.get('/login', (req, res) => {
     res.render('login', { message: '' });
 });
 
+app.get("/fun-games", (req, res) => {
+    res.render('fungames');
+});
+
 app.use("/", require('./routes/indexRoute'));
 app.use("/poetry", checkAuth, require('./routes/poetryRoute'));
 app.use("/quote", require('./routes/quoteRoute'));
