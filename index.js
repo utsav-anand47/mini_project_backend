@@ -1,32 +1,37 @@
 const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-const userRoute = require('./routes/userRoute');
-const poetryRoute = require('./routes/poetryRoute');
-const quoteRoute = require('./routes/quoteRoute');
-
-
-const dbConnect = require('./config/connection')
+const dbConnect = require('./config/connection');
+const checkAuth = require('./config/checkAuth');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 // Middlewares
-app.use(cors());
-app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/public'));
+app.set('view engine', 'ejs');
+
 
 // Connect to DB
 dbConnect()
 
 // Routes
-app.use("/api/user", userRoute);
-app.use("/api/poetry", poetryRoute);
-app.use("/api/quote", quoteRoute);
-app.use('/public', express.static(__dirname + '/public'))
+app.get('/', (req, res) => {
+    res.render('home');
+});
+
+app.get('/login', (req, res) => {
+    res.render('login', { message: '' });
+});
+
+app.use("/", require('./routes/indexRoute'));
+app.use("/poetry", checkAuth, require('./routes/poetryRoute'));
+app.use("/quote", require('./routes/quoteRoute'));
 
 
 
-const port = process.env.PORT || 3001;
+const port = 3000;
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });

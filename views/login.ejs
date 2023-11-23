@@ -1,0 +1,26 @@
+<form class="modal-contents animate container" action="/login" method="post">
+    <div class="imgcontainer">
+        <img src="./images/attack-7647136_1920.png" style="width: 100%;height: 20rem;" alt="Avatar" class="avatar">
+    </div>
+    <p class="text-danger" style="color: red;">
+        <%= message %>
+    </p>
+    <div class="modal-containers text-secondary ">
+        <label for="uname"><b></b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+
+        <button class="modal-button" type="submit">Login</button>
+        <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+    </div>
+
+    <div class="modal-containers text-secondary" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'"
+            class="modal-button cancelbtn">Cancel</button>
+        <span class="psww">Forgot <a href="#">password?</a></span>
+    </div>
+</form>

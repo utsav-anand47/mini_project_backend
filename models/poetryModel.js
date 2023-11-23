@@ -7,10 +7,6 @@ const poetrySchema = new mongoose.Schema({
         trim: true,
         unique: true,
     },
-    content: {
-        type: String,
-        required: true,
-    },
     imgUrl: {
         type: String,
         required: true,
