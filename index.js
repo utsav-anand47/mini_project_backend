@@ -31,8 +31,11 @@ app.get("/fun-games", (req, res) => {
 app.use("/", require('./routes/indexRoute'));
 app.use("/poetry", require('./routes/poetryRoute'));
 app.use("/quote", require('./routes/quoteRoute'));
-app.get("/game", (req, res) => {
-    res.sendFile(__dirname + '/public/html/game.html');
+app.get("/games", (req, res) => {
+    res.render('games');
+});
+app.get("/*", (req, res) => {
+    res.send('404 Not found');
 });
 
 

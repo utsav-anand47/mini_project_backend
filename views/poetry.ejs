@@ -32,6 +32,9 @@
                                 <p class="card-text">
                                     <%= poetryItem.title %>
                                 </p>
+                                <p class="card-text">
+                                   created By : <%= poetryItem.authorId.username %>
+                                </p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -48,8 +51,8 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <img src="<%= 'http://localhost:3001/' + poetryItem.imgUrl %>"
-                                                            alt="" style="background-size: 100% 100%; height: 400px;">
+                                                        <img src="<%=  poetryItem.imgUrl %>" alt=""
+                                                            style="background-size: 100% 100%; height: 400px;">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"

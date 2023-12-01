@@ -5,7 +5,7 @@ const route = require('express').Router();
 
 route.get('/', async (req, res) => {
     try {
-        const poetry = await Poetry.find();
+        const poetry = await Poetry.find().populate('authorId');
 
         res.render('poetry', { poetry });
     } catch (error) {

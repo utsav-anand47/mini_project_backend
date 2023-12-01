@@ -1,32 +1,39 @@
-const route = require('express').Router();
-const Quote = require('../models/quoteModel');
-const upload = require('../config/multer');
 
+const upload = require('../config/multer');
+const checkAuth = require('../config/checkAuth');
+const Quote = require('../models/quoteModel');
+const route = require('express').Router();
 
 route.get('/', async (req, res) => {
     try {
-        const poetry = await Quote.find();
+        const quote = await Quote.find().populate('authorId');
 
-        res.status(200).json(poetry);
+        res.render('quote', { quote });
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(404).send(error.message);
     }
 });
 
-route.post('/', upload.single('img'),  async (req, res) => {
+route.get('/upload', checkAuth, async (req, res) => {
+    res.render('uploadQuote');
+});
+
+route.post('/upload', checkAuth, upload.single('img'), async (req, res) => {
     try {
-        const { title, content, authorId } = req.body;
-        if (!title || !content || !authorId) {
-            return res.status(400).json({ message: "Please fill all fields" });
+        const { title } = req.body;
+        const authorId = req.user.id;
+        if (!title || !authorId) {
+            return res.status(400).send("Please fill all fields");
         }
+        if (!req.file) {
+            return res.status(400).send("Please Select file");
+        }
+        const imgUrl = 'uploads/' + req.file.filename;
+        await Quote.create({ title, imgUrl, authorId });
 
-        const imgUrl = req.file;
-
-        const poetry = await Quote.create({ title, content, imgUrl, authorId });
-
-        res.status(200).json(poetry);
+        res.redirect('/quote');
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(404).send(error.message);
     }
 });
 
