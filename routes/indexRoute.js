@@ -48,7 +48,9 @@ route.get('/logout', (req, res) => {
 
     res.clearCookie('token');
     res.clearCookie('user');
-    res.redirect('/login');
+    // console.log(req.path);
+    res.redirect('back');
+    // res.redirect('/login');
 });
 
 

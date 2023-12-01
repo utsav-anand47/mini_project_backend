@@ -29,7 +29,7 @@ app.get("/fun-games", (req, res) => {
 });
 
 app.use("/", require('./routes/indexRoute'));
-app.use("/poetry", checkAuth, require('./routes/poetryRoute'));
+app.use("/poetry", require('./routes/poetryRoute'));
 app.use("/quote", require('./routes/quoteRoute'));
 app.get("/game", (req, res) => {
     res.sendFile(__dirname + '/public/html/game.html');

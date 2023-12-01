@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
     try {
         const decoded = jwt.verify(token, 'atysgsvsggffdddd');
 
-        req.body.authorId = decoded?.id;
+        req.user = decoded;
         next();
     } catch (err) {
         res.send(err.message); // Redirect to login on token verification failure
